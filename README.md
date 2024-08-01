@@ -1,4 +1,4 @@
-Discord Markdown Formatter
+## Discord Markdown Formatter
 
 The Discord Markdown Formatter is a user-friendly web application designed to simplify the process of formatting text for Discord. It provides an intuitive interface to apply various markdown styles and preview the formatted text before copying it for use in the Discord client.
 
