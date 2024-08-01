@@ -3,33 +3,101 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Markdown Playground</title>
+    <title>Discord Markdown Formatter</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1548903334937961"
+    crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="app">
+    <div class="container">
         <header>
-            <h1>Discord Markdown Playground</h1>
+            <h1>Discord Markdown Formatter</h1>
+            <p>Format your text for Discord with ease!</p>
+            <button id="theme-toggle"><i class="fas fa-adjust"></i> Toggle Theme</button>
+            <button id="nitro-toggle"><i class="fas fa-bolt"></i> Toggle Nitro Character Limit</button>
         </header>
-        <div class="container">
+        <main>
             <div class="editor">
-                <div class="toolbar">
-                    <button data-markdown="**">Bold</button>
-                    <button data-markdown="*">Italic</button>
-                    <button data-markdown="__">Underline</button>
-                    <button data-markdown="~~">Strikethrough</button>
-                    <button data-markdown="`">Inline Code</button>
-                    <button data-markdown="```">Code Block</button>
-                    <button data-markdown="||">Spoiler</button>
-                    <button data-markdown="> ">Quote</button>
-                    <button data-markdown="# ">Header</button>
-                    <button data-markdown="- ">List</button>
+                <textarea id="input" placeholder="Enter your text here..."></textarea>
+                <div id="output"></div>
+                <div class="editor-footer">
+                    <span id="char-count">0 / 2000</span>
+                    <div class="editor-actions">
+                        <div class="editor-actions-group">
+                            <button id="undo-btn" title="Undo"><i class="fas fa-undo"></i></button>
+                            <button id="redo-btn" title="Redo"><i class="fas fa-redo"></i></button>
+                        </div>
+                        <button id="copy-btn" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
                 </div>
-                <textarea id="input" placeholder="Type your markdown here..."></textarea>
             </div>
-            <div id="output"></div>
-        </div>
+            <div class="controls">
+                <div class="control-group">
+                    <h3>Text Styling</h3>
+                    <button onclick="applyFormat('bold')" title="Bold"><i class="fas fa-bold"></i> Bold</button>
+                    <button onclick="applyFormat('italic')" title="Italic"><i class="fas fa-italic"></i> Italic</button>
+                    <button onclick="applyFormat('underline')" title="Underline"><i class="fas fa-underline"></i> Underline</button>
+                    <button onclick="applyFormat('strikethrough')" title="Strikethrough"><i class="fas fa-strikethrough"></i> Strikethrough</button>
+                </div>
+                <div class="control-group">
+                    <h3>Code</h3>
+                    <button onclick="applyFormat('inlineCode')" title="Inline Code"><i class="fas fa-code"></i> Inline Code</button>
+                    <button onclick="applyFormat('codeblock')" title="Code Block"><i class="fas fa-file-code"></i> Code Block</button>
+                </div>
+                <div class="control-group">
+                    <h3>Quotes</h3>
+                    <button onclick="applyFormat('quote')" title="Quote"><i class="fas fa-quote-left"></i> Quote</button>
+                    <button onclick="applyFormat('multiQuote')" title="Multi-line Quote"><i class="fas fa-quote-right"></i> Multi-line Quote</button>
+                </div>
+                <div class="control-group">
+                    <h3>Headers</h3>
+                    <button onclick="applyFormat('header1')" title="Header 1"><i class="fas fa-heading"></i> Header 1</button>
+                    <button onclick="applyFormat('header2')" title="Header 2"><i class="fas fa-heading"></i> Header 2</button>
+                    <button onclick="applyFormat('header3')" title="Header 3"><i class="fas fa-heading"></i> Header 3</button>
+                </div>
+                <div class="control-group">
+                    <h3>Other</h3>
+                    <button onclick="applyFormat('spoiler')" title="Spoiler"><i class="fas fa-eye-slash"></i> Spoiler</button>
+                    <button onclick="applyFormat('subtext')" title="Subtext"><i class="fas fa-subscript"></i> Subtext</button>
+                    <button onclick="applyFormat('bulletList')" title="Bullet List"><i class="fas fa-list-ul"></i> Bullet List</button>
+                    <button onclick="applyFormat('maskedLink')" title="Masked Link"><i class="fas fa-link"></i> Masked Link</button>
+                </div>
+            </div>
+            <div id="cheatsheet" class="hidden">
+                <h2>Markdown Cheat Sheet</h2>
+                <ul>
+                    <li><strong>Bold:</strong> **text**</li>
+                    <li><em>Italic:</em> *text*</li>
+                    <li><u>Underline:</u> __text__</li>
+                    <li><s>Strikethrough:</s> ~~text~~</li>
+                    <li>Inline Code: `code`</li>
+                    <li>Code Block: ```code```</li>
+                    <li>Quote: > text</li>
+                    <li>Multi-line Quote: >>> text</li>
+                    <li>Spoiler: ||text||</li>
+                    <li>Header 1: # text</li>
+                    <li>Header 2: ## text</li>
+                    <li>Header 3: ### text</li>
+                    <li>Subtext: -# text</li>
+                    <li>Bullet List: * item</li>
+                    <li>Masked Link: [text](url)</li>
+                </ul>
+            </div>
+            <button id="toggle-cheatsheet">Toggle Cheat Sheet</button>
+            <div class="template-controls">
+                <input type="text" id="template-name" placeholder="Template name">
+                <button id="save-template">Save Template</button>
+                <select id="load-template">
+                    <option value="">Load Template</option>
+                </select>
+            </div>
+        </main>
+        <footer>
+            <p>Learn more about <a href="https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-" target="_blank">Discord Markdown</a></p>
+        </footer>
     </div>
-    <script src="script.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
