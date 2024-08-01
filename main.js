@@ -105,7 +105,7 @@ function updateCharCount() {
     const count = input.value.replace(/\n/g, '\r\n').length;
     const maxCount = isNitro ? NITRO_MAX_CHAR_COUNT : MAX_CHAR_COUNT;
     charCount.textContent = `${count} / ${maxCount}`;
-    charCount.style.color = count > maxCount ? 'red' : '';
+    charCount.style.color = count > maxCount ? 'red' : (isNitro ? '#ff73fa' : '');
 }
 
 function applyFormat(format) {
@@ -209,7 +209,8 @@ function toggleCheatsheet() {
 
 function toggleNitro() {
     isNitro = !isNitro;
-    document.getElementById('nitro-toggle').textContent = isNitro ? 'Disable Nitro Character Limit' : 'Enable Nitro Character Limit';
+    const maxCount = isNitro ? NITRO_MAX_CHAR_COUNT : MAX_CHAR_COUNT;
+    charCount.textContent = `${input.value.replace(/\n/g, '\r\n').length} / ${maxCount}`;
     updateCharCount();
 }
 
