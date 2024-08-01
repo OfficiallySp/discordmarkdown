@@ -108,13 +108,13 @@
                 <div class="preset-timestamps">
                     <h3>Preset Timestamps</h3>
                     <div class="timestamp-grid">
-                        <button onclick="insertTimestamp('t')">Short Time</button>
-                        <button onclick="insertTimestamp('T')">Long Time</button>
-                        <button onclick="insertTimestamp('d')">Short Date</button>
-                        <button onclick="insertTimestamp('D')">Long Date</button>
-                        <button onclick="insertTimestamp('f')">Short Date/Time</button>
-                        <button onclick="insertTimestamp('F')">Long Date/Time</button>
-                        <button onclick="insertTimestamp('R')">Relative Time</button>
+                        <button data-format="t">Short Time</button>
+                        <button data-format="T">Long Time</button>
+                        <button data-format="d">Short Date</button>
+                        <button data-format="D">Long Date</button>
+                        <button data-format="f">Short Date/Time</button>
+                        <button data-format="F">Long Date/Time</button>
+                        <button data-format="R">Relative Time</button>
                     </div>
                 </div>
                 <div class="custom-timestamp">
@@ -129,7 +129,7 @@
                         <option value="F">Long Date/Time</option>
                         <option value="R">Relative Time</option>
                     </select>
-                    <button onclick="insertCustomTimestamp()">Insert Custom Date</button>
+                    <button id="insert-custom-timestamp">Insert Custom Date</button>
                 </div>
             </div>
             <button id="close-timestamp-modal" onclick="closeTimestampModal()">Close</button>
