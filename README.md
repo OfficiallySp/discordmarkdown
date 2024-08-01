@@ -8,6 +8,6 @@ This app also includes the following features.
 - Template Management: Save, load, and remove templates for quick formatting.
 
 This project is licensed under the MPL License. See the LICENSE file for details.
-Learn More
 
 For more details on Discord markdown, visit the Discord Markdown Guide.
+https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline
