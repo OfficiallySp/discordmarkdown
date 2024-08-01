@@ -21,15 +21,23 @@
         <main>
             <div class="editor">
                 <textarea id="input" placeholder="Enter your text here..."></textarea>
+                <span id="char-count">0 / 2000</span>
                 <div id="output"></div>
                 <div class="editor-footer">
-                    <span id="char-count">0 / 2000</span>
                     <div class="editor-actions">
                         <div class="editor-actions-group">
                             <button id="undo-btn" title="Undo"><i class="fas fa-undo"></i></button>
                             <button id="redo-btn" title="Redo"><i class="fas fa-redo"></i></button>
+                            <button id="copy-btn" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy</button>
                         </div>
-                        <button id="copy-btn" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy</button>
+                    </div>
+                    <div class="template-controls">
+                        <input type="text" id="template-name" placeholder="Template name">
+                        <button id="save-template">Save</button>
+                        <select id="load-template">
+                            <option value="">Load Template</option>
+                        </select>
+                        <button id="remove-template">Remove</button>
                     </div>
                 </div>
             </div>
@@ -65,6 +73,7 @@
                     <button onclick="applyFormat('maskedLink')" title="Masked Link"><i class="fas fa-link"></i> Masked Link</button>
                 </div>
             </div>
+            <button id="toggle-cheatsheet">Toggle Cheat Sheet</button>
             <div id="cheatsheet" class="hidden">
                 <h2>Markdown Cheat Sheet</h2>
                 <ul>
@@ -84,14 +93,6 @@
                     <li>Bullet List: * item</li>
                     <li>Masked Link: [text](url)</li>
                 </ul>
-            </div>
-            <button id="toggle-cheatsheet">Toggle Cheat Sheet</button>
-            <div class="template-controls">
-                <input type="text" id="template-name" placeholder="Template name">
-                <button id="save-template">Save Template</button>
-                <select id="load-template">
-                    <option value="">Load Template</option>
-                </select>
             </div>
         </main>
         <footer>
