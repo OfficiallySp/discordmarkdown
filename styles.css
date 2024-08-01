@@ -1,23 +1,97 @@
 body {
-    font-family: Arial, sans-serif;
-    max-width: 800px;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background-color: #36393f;
+    color: #dcddde;
+    margin: 0;
+    padding: 0;
+}
+
+.app {
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
+}
+
+header {
+    background-color: #202225;
+    padding: 10px 20px;
+    border-radius: 5px 5px 0 0;
+}
+
+h1 {
+    font-size: 24px;
+    margin: 0;
 }
 
 .container {
     display: flex;
     gap: 20px;
+    background-color: #2f3136;
+    padding: 20px;
+    border-radius: 0 0 5px 5px;
 }
 
 textarea, #output {
     width: 50%;
-    height: 300px;
+    height: 400px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 1px solid #202225;
+    border-radius: 5px;
+    background-color: #40444b;
+    color: #dcddde;
+    font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+textarea {
+    resize: none;
 }
 
 #output {
-    background-color: #f0f0f0;
     overflow-y: auto;
+}
+
+/* Discord-like styles for formatted text */
+#output strong { font-weight: bold; }
+#output em { font-style: italic; }
+#output u { text-decoration: underline; }
+#output s { text-decoration: line-through; }
+#output code {
+    background-color: #2f3136;
+    padding: 2px 4px;
+    border-radius: 3px;
+    font-family: Consolas, 'Courier New', monospace;
+}
+#output pre {
+    background-color: #2f3136;
+    padding: 10px;
+    border-radius: 5px;
+    white-space: pre-wrap;
+}
+#output blockquote {
+    border-left: 4px solid #4f545c;
+    margin: 0;
+    padding-left: 10px;
+    color: #b9bbbe;
+}
+#output h1, #output h2, #output h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+}
+#output ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+#output .spoiler {
+    background-color: #202225;
+    color: transparent;
+    border-radius: 3px;
+    transition: all 0.1s ease;
+}
+
+#output .spoiler:hover {
+    background-color: rgba(32, 34, 37, 0.1);
+    color: #dcddde;
 }

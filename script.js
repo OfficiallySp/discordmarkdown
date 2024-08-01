@@ -11,6 +11,7 @@ function updateOutput() {
     
     // Italic
     text = text.replace(/\*(.*?)\*/g, '<em>$1</em>');
+    text = text.replace(/_(.*?)_/g, '<em>$1</em>');
     
     // Underline
     text = text.replace(/__(.*?)__/g, '<u>$1</u>');
@@ -26,6 +27,7 @@ function updateOutput() {
     
     // Block quotes
     text = text.replace(/^> (.+)$/gm, '<blockquote>$1</blockquote>');
+    text = text.replace(/^>>> ([\s\S]*?)$/gm, '<blockquote>$1</blockquote>');
     
     // Headers
     text = text.replace(/^# (.*$)/gm, '<h1>$1</h1>');
@@ -36,8 +38,14 @@ function updateOutput() {
     text = text.replace(/^\* (.+)/gm, '<ul><li>$1</li></ul>');
     text = text.replace(/^- (.+)/gm, '<ul><li>$1</li></ul>');
     
+    // Spoilers
+    text = text.replace(/\|\|(.*?)\|\|/g, '<span class="spoiler">$1</span>');
+    
     // Newlines
     text = text.replace(/\n/g, '<br>');
     
     output.innerHTML = text;
 }
+
+// Initial update
+updateOutput();
