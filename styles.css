@@ -31,6 +31,44 @@ h1 {
     border-radius: 0 0 5px 5px;
 }
 
+.editor {
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+}
+
+.toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 10px;
+    padding: 8px;
+    background-color: #2f3136;
+    border-radius: 5px;
+}
+
+.toolbar button {
+    background-color: #36393f;
+    border: none;
+    color: #b9bbbe;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.toolbar button:hover {
+    background-color: #4f545c;
+    color: #ffffff;
+}
+
+.toolbar button:active {
+    background-color: #5865f2;
+    color: #ffffff;
+}
+
 textarea, #output {
     width: 50%;
     height: 400px;
@@ -46,6 +84,7 @@ textarea, #output {
 
 textarea {
     resize: none;
+    flex-grow: 1;
 }
 
 #output {

@@ -12,7 +12,21 @@
             <h1>Discord Markdown Playground</h1>
         </header>
         <div class="container">
-            <textarea id="input" placeholder="Type your markdown here..."></textarea>
+            <div class="editor">
+                <div class="toolbar">
+                    <button data-markdown="**">Bold</button>
+                    <button data-markdown="*">Italic</button>
+                    <button data-markdown="__">Underline</button>
+                    <button data-markdown="~~">Strikethrough</button>
+                    <button data-markdown="`">Inline Code</button>
+                    <button data-markdown="```">Code Block</button>
+                    <button data-markdown="||">Spoiler</button>
+                    <button data-markdown="> ">Quote</button>
+                    <button data-markdown="# ">Header</button>
+                    <button data-markdown="- ">List</button>
+                </div>
+                <textarea id="input" placeholder="Type your markdown here..."></textarea>
+            </div>
             <div id="output"></div>
         </div>
     </div>

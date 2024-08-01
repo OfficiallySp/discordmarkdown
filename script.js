@@ -1,7 +1,9 @@
 const input = document.getElementById('input');
 const output = document.getElementById('output');
+const toolbar = document.querySelector('.toolbar');
 
 input.addEventListener('input', updateOutput);
+toolbar.addEventListener('click', handleToolbarClick);
 
 function updateOutput() {
     let text = input.value;
@@ -45,6 +47,27 @@ function updateOutput() {
     text = text.replace(/\n/g, '<br>');
     
     output.innerHTML = text;
+}
+
+function handleToolbarClick(event) {
+    if (event.target.tagName === 'BUTTON') {
+        const markdown = event.target.getAttribute('data-markdown');
+        const start = input.selectionStart;
+        const end = input.selectionEnd;
+        const selectedText = input.value.substring(start, end);
+        
+        let replacement;
+        if (markdown === '```' || markdown === '> ' || markdown === '# ' || markdown === '- ') {
+            replacement = `${markdown}${selectedText}`;
+        } else {
+            replacement = `${markdown}${selectedText}${markdown}`;
+        }
+        
+        input.value = input.value.substring(0, start) + replacement + input.value.substring(end);
+        input.focus();
+        input.setSelectionRange(start + markdown.length, end + markdown.length);
+        updateOutput();
+    }
 }
 
 // Initial update
