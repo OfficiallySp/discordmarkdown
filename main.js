@@ -40,19 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    document.getElementById('insert-custom-timestamp').addEventListener('click', () => {
-        const format = document.getElementById('custom-date-format').value;
-        const date = document.getElementById('custom-date-picker').value;
-        insertCustomTimestamp(date, format);
-    });
+    document.getElementById('insert-custom-timestamp').addEventListener('click', insertCustomTimestamp);
 });
-
-// Add event listeners for timestamp buttons
-document.querySelectorAll('.timestamp-grid button').forEach(button => {
-    button.addEventListener('click', () => insertTimestamp(button.dataset.format));
-});
-
-document.getElementById('insert-custom-timestamp').addEventListener('click', insertCustomTimestamp);
 
 // Main functions
 function handleInput() {
@@ -69,10 +58,47 @@ function updateOutput() {
     let text = input.value;
     // ... (keep your existing text replacement logic here)
     
+    // Add this section to handle timestamp formatting
+    text = text.replace(/<t:(\d+):([tTdDfFR])>/g, (match, timestamp, format) => {
+        const date = new Date(timestamp * 1000);
+        switch (format) {
+            case 't': return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            case 'T': return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', second:'2-digit'});
+            case 'd': return date.toLocaleDateString();
+            case 'D': return date.toLocaleDateString([], {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'});
+            case 'f': return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}`;
+            case 'F': return date.toLocaleString([], {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute:'2-digit'});
+            case 'R': return timeAgo(date);
+            default: return match;
+        }
+    });
+    
     output.innerHTML = text;
     document.querySelectorAll('pre code').forEach((block) => {
         hljs.highlightBlock(block);
     });
+}
+
+// Add this helper function for relative time
+function timeAgo(date) {
+    const seconds = Math.floor((new Date() - date) / 1000);
+    const intervals = [
+        { label: 'year', seconds: 31536000 },
+        { label: 'month', seconds: 2592000 },
+        { label: 'week', seconds: 604800 },
+        { label: 'day', seconds: 86400 },
+        { label: 'hour', seconds: 3600 },
+        { label: 'minute', seconds: 60 },
+        { label: 'second', seconds: 1 }
+    ];
+    for (let i = 0; i < intervals.length; i++) {
+        const interval = intervals[i];
+        const count = Math.floor(seconds / interval.seconds);
+        if (count >= 1) {
+            return `${count} ${interval.label}${count !== 1 ? 's' : ''} ago`;
+        }
+    }
+    return 'just now';
 }
 
 function updateCharCount() {
@@ -132,13 +158,17 @@ function insertTimestamp(format) {
     const timestamp = Math.floor(Date.now() / 1000);
     insertTextAtCursor(`<t:${timestamp}:${format}>`);
     closeTimestampModal();
+    updateOutput(); // Add this line
 }
 
-function insertCustomTimestamp(date, format) {
+function insertCustomTimestamp() {
     console.log('Inserting custom timestamp'); // Debug log
+    const date = document.getElementById('custom-date-picker').value;
+    const format = document.getElementById('custom-date-format').value;
     const timestamp = Math.floor(new Date(date).getTime() / 1000);
     insertTextAtCursor(`<t:${timestamp}:${format}>`);
     closeTimestampModal();
+    updateOutput(); // Add this line
 }
 
 function insertTextAtCursor(text) {
@@ -146,6 +176,7 @@ function insertTextAtCursor(text) {
     const textBefore = input.value.substring(0, cursorPos);
     const textAfter = input.value.substring(cursorPos);
     input.value = textBefore + text + textAfter;
+    input.selectionStart = input.selectionEnd = cursorPos + text.length; // Add this line
     handleInput();
 }
 
