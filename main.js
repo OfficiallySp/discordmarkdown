@@ -267,4 +267,26 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
+document.getElementById('remove-template').addEventListener('click', function() {
+    const select = document.getElementById('load-template');
+    const selectedTemplate = select.value;
+    
+    if (selectedTemplate) {
+        // Remove the template from localStorage
+        localStorage.removeItem(`template_${selectedTemplate}`);
+        
+        // Remove the option from the select element
+        select.remove(select.selectedIndex);
+        
+        // Clear the input if the removed template was selected
+        if (select.value === '') {
+            document.getElementById('input').value = '';
+        }
+        
+        alert(`Template "${selectedTemplate}" has been removed.`);
+    } else {
+        alert('Please select a template to remove.');
+    }
+});
+
 updateOutput();
