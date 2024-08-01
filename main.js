@@ -62,6 +62,13 @@ function updateOutput() {
         }
         return `<pre><code>${hljs.highlightAuto(code).value}</code></pre>`;
     });
+    
+    // Timestamps
+    text = text.replace(/<t:(\d+):F>/g, (match, timestamp) => {
+        const date = new Date(timestamp * 1000);
+        return date.toLocaleString();
+    });
+
     output.innerHTML = text;
     document.querySelectorAll('pre code').forEach((block) => {
         hljs.highlightBlock(block);
@@ -144,6 +151,10 @@ function applyFormat(format) {
             } else {
                 return;
             }
+            break;
+        case 'timestamp':
+            const now = Math.floor(Date.now() / 1000);
+            formattedText = `<t:${now}:F>`;
             break;
     }
 
