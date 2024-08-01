@@ -1,0 +1,23 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+}
+
+textarea, #output {
+    width: 50%;
+    height: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+}
+
+#output {
+    background-color: #f0f0f0;
+    overflow-y: auto;
+}
