@@ -9,6 +9,14 @@ const redoBtn = document.getElementById('redo-btn');
 let undoStack = [];
 let redoStack = [];
 
+// Add these constants at the top of your file with the other element selections
+const timestampBtn = document.getElementById('timestamp-btn');
+const timestampModal = document.getElementById('timestamp-modal');
+const timestampPicker = document.getElementById('timestamp-picker');
+const timestampFormat = document.getElementById('timestamp-format');
+const insertTimestampBtn = document.getElementById('insert-timestamp-btn');
+const closeTimestampModalBtn = document.getElementById('close-timestamp-modal-btn');
+
 themeToggle.addEventListener('click', () => {
     body.classList.toggle('light-theme');
 });
@@ -64,9 +72,17 @@ function updateOutput() {
     });
     
     // Timestamps
-    text = text.replace(/<t:(\d+):F>/g, (match, timestamp) => {
+    text = text.replace(/<t:(\d+):(t|T|d|D|f|F|R)>/g, (match, timestamp, format) => {
         const date = new Date(timestamp * 1000);
-        return date.toLocaleString();
+        switch (format) {
+            case 't': return date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+            case 'T': return date.toLocaleTimeString();
+            case 'd': return date.toLocaleDateString([], {month: 'short', day: 'numeric', year: 'numeric'});
+            case 'D': return date.toLocaleDateString([], {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric'});
+            case 'f': return date.toLocaleString([], {month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute:'2-digit'});
+            case 'F': return date.toLocaleString([], {weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', hour: '2-digit', minute:'2-digit'});
+            case 'R': return getRelativeTime(timestamp * 1000);
+        }
     });
 
     output.innerHTML = text;
@@ -153,8 +169,7 @@ function applyFormat(format) {
             }
             break;
         case 'timestamp':
-            const now = Math.floor(Date.now() / 1000);
-            formattedText = `<t:${now}:F>`;
+            openTimestampModal();
             break;
     }
 
@@ -299,5 +314,72 @@ document.getElementById('remove-template').addEventListener('click', function() 
         alert('Please select a template to remove.');
     }
 });
+
+// Add these functions
+function toggleTimestampDropdown() {
+    document.getElementById("timestamp-dropdown-content").classList.toggle("hidden");
+}
+
+function insertTimestamp(format) {
+    const timestamp = Math.floor(Date.now() / 1000);
+    const timestampString = `<t:${timestamp}:${format}>`;
+    
+    const cursorPos = input.selectionStart;
+    const textBefore = input.value.substring(0, cursorPos);
+    const textAfter = input.value.substring(cursorPos);
+    input.value = textBefore + timestampString + textAfter;
+    
+    updateOutput();
+    updateCharCount();
+    toggleTimestampDropdown();
+}
+
+// Close the dropdown if the user clicks outside of it
+window.onclick = function(event) {
+    if (!event.target.matches('.timestamp-btn')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+            var openDropdown = dropdowns[i];
+            if (!openDropdown.classList.contains('hidden')) {
+                openDropdown.classList.add('hidden');
+            }
+        }
+    }
+}
+
+function getRelativeTime(timestamp) {
+    const diff = Date.now() - timestamp;
+    const seconds = Math.floor(diff / 1000);
+    const minutes = Math.floor(seconds / 60);
+    const hours = Math.floor(minutes / 60);
+    const days = Math.floor(hours / 24);
+
+    if (seconds < 60) return 'just now';
+    if (minutes < 60) return `${minutes} minute${minutes > 1 ? 's' : ''} ago`;
+    if (hours < 24) return `${hours} hour${hours > 1 ? 's' : ''} ago`;
+    if (days < 30) return `${days} day${days > 1 ? 's' : ''} ago`;
+    return 'over a month ago';
+}
+
+function insertCustomTimestamp() {
+    const customDate = document.getElementById('custom-date-picker').value;
+    const format = document.getElementById('custom-date-format').value;
+    
+    if (customDate) {
+        const timestamp = Math.floor(new Date(customDate).getTime() / 1000);
+        const timestampString = `<t:${timestamp}:${format}>`;
+        
+        const cursorPos = input.selectionStart;
+        const textBefore = input.value.substring(0, cursorPos);
+        const textAfter = input.value.substring(cursorPos);
+        input.value = textBefore + timestampString + textAfter;
+        
+        updateOutput();
+        updateCharCount();
+        toggleTimestampDropdown();
+    } else {
+        alert('Please select a date and time.');
+    }
+}
 
 updateOutput();

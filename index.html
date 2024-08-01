@@ -71,7 +71,7 @@
                     <button onclick="applyFormat('subtext')" title="Subtext"><i class="fas fa-subscript"></i> Subtext</button>
                     <button onclick="applyFormat('bulletList')" title="Bullet List"><i class="fas fa-list-ul"></i> Bullet List</button>
                     <button onclick="applyFormat('maskedLink')" title="Masked Link"><i class="fas fa-link"></i> Masked Link</button>
-                    <button onclick="applyFormat('timestamp')" title="Timestamp"><i class="fas fa-clock"></i> Timestamp</button>
+                    <button id="timestamp-btn" title="Timestamp" class="timestamp-btn"><i class="fas fa-clock"></i> Timestamp</button>
                 </div>
             </div>
             <button id="toggle-cheatsheet">Toggle Cheat Sheet</button>
@@ -93,13 +93,47 @@
                     <li>Subtext: -# text</li>
                     <li>Bullet List: * item</li>
                     <li>Masked Link: [text](url)</li>
-                    <li>Timestamp: <time:1234567890></li>
+                    <li>Timestamp: &lt;t:1234567890:t&gt; (t, T, d, D, f, F, R)</li>
                 </ul>
             </div>
         </main>
         <footer>
             <p>Learn more about <a href="https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-" target="_blank">Discord Markdown</a></p>
         </footer>
+    </div>
+    <div id="timestamp-modal" class="modal hidden">
+        <div class="modal-content">
+            <h2>Insert Timestamp</h2>
+            <div class="timestamp-sections">
+                <div class="preset-timestamps">
+                    <h3>Preset Timestamps</h3>
+                    <div class="timestamp-grid">
+                        <button onclick="insertTimestamp('t')">Short Time</button>
+                        <button onclick="insertTimestamp('T')">Long Time</button>
+                        <button onclick="insertTimestamp('d')">Short Date</button>
+                        <button onclick="insertTimestamp('D')">Long Date</button>
+                        <button onclick="insertTimestamp('f')">Short Date/Time</button>
+                        <button onclick="insertTimestamp('F')">Long Date/Time</button>
+                        <button onclick="insertTimestamp('R')">Relative Time</button>
+                    </div>
+                </div>
+                <div class="custom-timestamp">
+                    <h3>Custom Timestamp</h3>
+                    <input type="datetime-local" id="custom-date-picker">
+                    <select id="custom-date-format">
+                        <option value="t">Short Time</option>
+                        <option value="T">Long Time</option>
+                        <option value="d">Short Date</option>
+                        <option value="D">Long Date</option>
+                        <option value="f">Short Date/Time</option>
+                        <option value="F">Long Date/Time</option>
+                        <option value="R">Relative Time</option>
+                    </select>
+                    <button onclick="insertCustomTimestamp()">Insert Custom Date</button>
+                </div>
+            </div>
+            <button id="close-timestamp-modal" onclick="closeTimestampModal()">Close</button>
+        </div>
     </div>
     <script src="main.js"></script>
 </body>

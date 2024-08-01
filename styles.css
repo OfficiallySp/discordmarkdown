@@ -37,7 +37,7 @@ header p {
 }
 
 textarea, #output {
-    width: 50%;
+    width: 100%;
     height: 300px;
     padding: 15px;
     border: 1px solid #4f545c;
@@ -152,4 +152,174 @@ footer a:hover {
 
 #cheatsheet.show {
     display: block;
+}
+
+#timestamp-modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+#timestamp-modal-content {
+    background-color: #36393f;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #202225;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    color: #dcddde;
+}
+
+#timestamp-picker {
+    width: 100%;
+}
+
+#timestamp-format {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#insert-timestamp-btn {
+    margin-top: 20px;
+}
+
+#close-timestamp-modal-btn {
+    margin-top: 10px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #2f3136;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+}
+
+.modal-content h2 {
+    color: #ffffff;
+}
+
+.modal-content input, .modal-content select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    background-color: #40444b;
+    border: 1px solid #4f545c;
+    color: #ffffff;
+}
+
+.modal-content button {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.timestamp-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.timestamp-btn {
+    padding: 10px 15px;
+    background-color: #7289da;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.timestamp-btn:hover {
+    background-color: #677bc4;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #18191c;
+    min-width: 240px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.24);
+    z-index: 1;
+    border-radius: 4px;
+    overflow: hidden;
+    padding: 8px;
+}
+
+.timestamp-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.dropdown-content button {
+    color: #dcddde;
+    padding: 8px 12px;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background-color: #2f3136;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.dropdown-content button:hover {
+    background-color: #4f545c;
+}
+
+.relative-time {
+    margin-top: 8px;
+    grid-column: 1 / -1;
+}
+
+.custom-date {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.custom-date input,
+.custom-date select {
+    background-color: #40444b;
+    border: none;
+    color: #dcddde;
+    padding: 8px;
+    border-radius: 3px;
+}
+
+.custom-date button {
+    background-color: #7289da;
+    color: white;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: 3px;
+}
+
+.custom-date button:hover {
+    background-color: #677bc4;
 }
