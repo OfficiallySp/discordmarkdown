@@ -1,6 +1,6 @@
 body {
     font-family: 'Roboto', Arial, sans-serif;
-    line-height: 1.6;
+    line-height: 1.25;
     margin: 0;
     padding: 0;
     background-color: #36393f;
@@ -8,14 +8,14 @@ body {
 }
 
 .container {
-    max-width: 900px;
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 20px;
+    padding: 5px;
 }
 
 header {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
 }
 
 h1 {
@@ -33,7 +33,7 @@ header p {
     display: flex;
     gap: 10px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -66,7 +66,7 @@ textarea, #output {
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 button {
@@ -79,8 +79,12 @@ button {
     transition: background-color 0.3s ease;
 }
 
+button:hover, button:focus {
+    background-color: #677bc4;
+}
+
 .control-group h3 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .control-group button {
@@ -104,7 +108,8 @@ button {
     background-color: #5865f2;
 }
 
-.light-theme button:hover {
+.light-theme button:hover,
+.light-theme button:focus {
     background-color: #4752c4;
 }
 
@@ -127,7 +132,7 @@ footer a:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-top: 10px;
+    margin-top: 5px;
 }
 
 .editor-actions {
@@ -141,25 +146,40 @@ footer a:hover {
     gap: 5px;
 }
 
-.template-controls {
-    display: flex;
-    gap: 5px;
-    flex-wrap: wrap;
+.char-count-nitro {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    margin-top: 3px;
 }
 
 #char-count {
-    font-size: 0.9em;
+    font-size: 0.8em;
     color: #b9bbbe;
-    margin-left: auto;
 }
 
-.editor-actions button, .template-controls button, .template-controls input, .template-controls select {
+#nitro-toggle {
+    background-color: #ff73fa;
+    color: #ffffff;
     padding: 5px 10px;
     font-size: 0.9em;
+    border-radius: 3px;
+}
+
+#nitro-toggle:hover,
+#nitro-toggle:focus {
+    background-color: #ff4ff7;
+}
+
+.template-controls {
+    display: inline-flex;
+    gap: 5px;
+    flex-wrap: wrap;
+    margin-top: 5px;
 }
 
 #copy-btn {
-    margin-left: auto;
+    margin-left: 10px;
 }
 
 #cheatsheet {
@@ -172,46 +192,6 @@ footer a:hover {
 
 #cheatsheet.show {
     display: block;
-}
-
-#timestamp-modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4);
-}
-
-#timestamp-modal-content {
-    background-color: #36393f;
-    margin: 15% auto;
-    padding: 20px;
-    border: 1px solid #202225;
-    width: 80%;
-    max-width: 500px;
-    border-radius: 5px;
-    color: #dcddde;
-}
-
-#timestamp-picker {
-    width: 100%;
-}
-
-#timestamp-format {
-    width: 100%;
-    margin-top: 10px;
-}
-
-#insert-timestamp-btn {
-    margin-top: 20px;
-}
-
-#close-timestamp-modal-btn {
-    margin-top: 10px;
 }
 
 .modal {
@@ -227,12 +207,14 @@ footer a:hover {
 }
 
 .modal-content {
-    background-color: #2f3136;
+    background-color: #36393f;
     margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid #202225;
     width: 80%;
     max-width: 500px;
+    border-radius: 5px;
+    color: #dcddde;
 }
 
 .modal-content h2 {
@@ -252,10 +234,6 @@ footer a:hover {
     margin-top: 10px;
 }
 
-.hidden {
-    display: none;
-}
-
 .timestamp-dropdown {
     position: relative;
     display: inline-block;
@@ -271,14 +249,10 @@ footer a:hover {
     transition: background-color 0.3s ease;
 }
 
-.timestamp-btn:hover {
-    background-color: #677bc4;
-}
-
 .dropdown-content {
     position: absolute;
     background-color: #18191c;
-    min-width: 240px;
+    min-width: 200px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.24);
     z-index: 1;
     border-radius: 4px;
@@ -306,7 +280,8 @@ footer a:hover {
     border-radius: 3px;
 }
 
-.dropdown-content button:hover {
+.dropdown-content button:hover,
+.dropdown-content button:focus {
     background-color: #4f545c;
 }
 
@@ -340,10 +315,22 @@ footer a:hover {
     border-radius: 3px;
 }
 
-.custom-date button:hover {
+.custom-date button:hover,
+.custom-date button:focus {
     background-color: #677bc4;
 }
 
 #nitro-toggle, #theme-toggle {
     margin-bottom: 10px;
+}
+
+/* Add some custom styling for the Nitro toggle */
+#nitro-toggle {
+    background-color: #ff73fa;
+    color: #ffffff;
+}
+
+#nitro-toggle:hover,
+#nitro-toggle:focus {
+    background-color: #ff4ff7;
 }

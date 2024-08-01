@@ -16,7 +16,6 @@
             <h1>Discord Markdown Formatter</h1>
             <p>Format your text for Discord with ease!</p>
             <button id="theme-toggle"><i class="fas fa-adjust"></i> Toggle Theme</button>
-            <button id="nitro-toggle"><i class="fas fa-bolt"></i> Toggle Nitro Character Limit</button>
         </header>
         <main>
             <div class="editor">
@@ -30,7 +29,10 @@
                         </div>
                         <button id="copy-btn" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy</button>
                     </div>
-                    <span id="char-count">0 / 2000</span>
+                    <div class="char-count-nitro">
+                        <span id="char-count">0 / 2000</span>
+                        <button id="nitro-toggle"><i class="fas fa-bolt"></i> Toggle Nitro</button>
+                    </div>
                     <div class="template-controls">
                         <input type="text" id="template-name" placeholder="Template name">
                         <button id="save-template">Save</button>
