@@ -14,6 +14,7 @@ let redoStack = [];
 const MAX_CHAR_COUNT = 2000;
 const NITRO_MAX_CHAR_COUNT = 4000;
 let isNitro = false;
+const MAX_UNDO_STACK_SIZE = 100; // Adjust this value as needed
 
 // Event Listeners
 themeToggle.addEventListener('click', () => body.classList.toggle('light-theme'));
@@ -31,9 +32,26 @@ document.getElementById('remove-template').addEventListener('click', removeTempl
 
 // Timestamp Modal Event Listeners
 document.getElementById('close-timestamp-modal').addEventListener('click', closeTimestampModal);
-document.querySelectorAll('.timestamp-grid button').forEach(btn => {
-    btn.addEventListener('click', () => insertTimestamp(btn.dataset.format));
+document.addEventListener('DOMContentLoaded', () => {
+    const timestampGrid = document.querySelector('.timestamp-grid');
+    timestampGrid.addEventListener('click', (e) => {
+        if (e.target.matches('button[data-format]')) {
+            insertTimestamp(e.target.dataset.format);
+        }
+    });
+
+    document.getElementById('insert-custom-timestamp').addEventListener('click', () => {
+        const format = document.getElementById('custom-date-format').value;
+        const date = document.getElementById('custom-date-picker').value;
+        insertCustomTimestamp(date, format);
+    });
 });
+
+// Add event listeners for timestamp buttons
+document.querySelectorAll('.timestamp-grid button').forEach(button => {
+    button.addEventListener('click', () => insertTimestamp(button.dataset.format));
+});
+
 document.getElementById('insert-custom-timestamp').addEventListener('click', insertCustomTimestamp);
 
 // Main functions
@@ -41,6 +59,9 @@ function handleInput() {
     updateOutput();
     updateCharCount();
     undoStack.push(input.value);
+    if (undoStack.length > MAX_UNDO_STACK_SIZE) {
+        undoStack.shift(); // Remove the oldest item
+    }
     redoStack = [];
 }
 
@@ -84,8 +105,7 @@ function applyFormat(format) {
         case 'bulletList': formattedText = `* ${selectedText}`; break;
         case 'maskedLink':
             const url = prompt("Enter the URL:");
-            if (url) formattedText = `[${selectedText}](${url})`;
-            else return;
+            formattedText = url ? `[${selectedText}](${url})` : selectedText;
             break;
     }
 
@@ -114,18 +134,11 @@ function insertTimestamp(format) {
     closeTimestampModal();
 }
 
-function insertCustomTimestamp() {
+function insertCustomTimestamp(date, format) {
     console.log('Inserting custom timestamp'); // Debug log
-    const customDate = document.getElementById('custom-date-picker').value;
-    const format = document.getElementById('custom-date-format').value;
-    
-    if (customDate) {
-        const timestamp = Math.floor(new Date(customDate).getTime() / 1000);
-        insertTextAtCursor(`<t:${timestamp}:${format}>`);
-        closeTimestampModal();
-    } else {
-        alert('Please select a date and time.');
-    }
+    const timestamp = Math.floor(new Date(date).getTime() / 1000);
+    insertTextAtCursor(`<t:${timestamp}:${format}>`);
+    closeTimestampModal();
 }
 
 function insertTextAtCursor(text) {
