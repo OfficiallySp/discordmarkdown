@@ -2,145 +2,16 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="refresh" content="0; url=https://discompress.officiallysp.net/#markdown">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Discord Markdown Formatter</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1548903334937961"
-    crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://officiallysp.net/assets/css/design-tokens.css" />
+    <title>Discord Markdown - Moved to Discord Tools</title>
+    <link rel="canonical" href="https://discompress.officiallysp.net/">
+    <script>
+        // Redirect to merged Discord Tools site, open Markdown tab
+        window.location.replace("https://discompress.officiallysp.net/");
+    </script>
 </head>
 <body>
-    <a href="https://officiallysp.net" class="officiallysp-bar" aria-label="Part of OfficiallySp - More projects" style="--os-accent: #5865F2;">
-        <span class="os-icon">◀</span><span class="os-accent">OfficiallySp.net</span><span>— More projects</span>
-    </a>
-    <div class="container">
-        <header>
-            <h1>Discord Markdown Formatter</h1>
-            <p>Format your text for Discord with ease!</p>
-            <button id="theme-toggle"><i class="fas fa-adjust"></i> Toggle Theme</button>
-        </header>
-        <main>
-            <div class="editor">
-                <textarea id="input" placeholder="Enter your text here..."></textarea>
-                <div id="output"></div>
-                <div class="editor-footer">
-                    <div class="editor-actions">
-                        <div class="editor-actions-group">
-                            <button id="undo-btn" title="Undo"><i class="fas fa-undo"></i></button>
-                            <button id="redo-btn" title="Redo"><i class="fas fa-redo"></i></button>
-                        </div>
-                        <button id="copy-btn" title="Copy to Clipboard"><i class="fas fa-copy"></i> Copy</button>
-                    </div>
-                    <div class="char-count-nitro">
-                        <span id="char-count">0 / 2000</span>
-                        <button id="nitro-toggle"><i class="fas fa-bolt"></i> Toggle Nitro</button>
-                    </div>
-                    <div class="template-controls">
-                        <input type="text" id="template-name" placeholder="Template name">
-                        <button id="save-template">Save</button>
-                        <select id="load-template">
-                            <option value="">Load Template</option>
-                        </select>
-                        <button id="remove-template">Remove</button>
-                    </div>
-                </div>
-            </div>
-            <div class="controls">
-                <div class="control-group">
-                    <h3>Text Styling</h3>
-                    <button onclick="applyFormat('bold')" title="Bold"><i class="fas fa-bold"></i> Bold</button>
-                    <button onclick="applyFormat('italic')" title="Italic"><i class="fas fa-italic"></i> Italic</button>
-                    <button onclick="applyFormat('underline')" title="Underline"><i class="fas fa-underline"></i> Underline</button>
-                    <button onclick="applyFormat('strikethrough')" title="Strikethrough"><i class="fas fa-strikethrough"></i> Strikethrough</button>
-                </div>
-                <div class="control-group">
-                    <h3>Code</h3>
-                    <button onclick="applyFormat('inlineCode')" title="Inline Code"><i class="fas fa-code"></i> Inline Code</button>
-                    <button onclick="applyFormat('codeblock')" title="Code Block"><i class="fas fa-file-code"></i> Code Block</button>
-                </div>
-                <div class="control-group">
-                    <h3>Quotes</h3>
-                    <button onclick="applyFormat('quote')" title="Quote"><i class="fas fa-quote-left"></i> Quote</button>
-                    <button onclick="applyFormat('multiQuote')" title="Multi-line Quote"><i class="fas fa-quote-right"></i> Multi-line Quote</button>
-                </div>
-                <div class="control-group">
-                    <h3>Headers</h3>
-                    <button onclick="applyFormat('header1')" title="Header 1"><i class="fas fa-heading"></i> Header 1</button>
-                    <button onclick="applyFormat('header2')" title="Header 2"><i class="fas fa-heading"></i> Header 2</button>
-                    <button onclick="applyFormat('header3')" title="Header 3"><i class="fas fa-heading"></i> Header 3</button>
-                </div>
-                <div class="control-group">
-                    <h3>Other</h3>
-                    <button onclick="applyFormat('spoiler')" title="Spoiler"><i class="fas fa-eye-slash"></i> Spoiler</button>
-                    <button onclick="applyFormat('subtext')" title="Subtext"><i class="fas fa-subscript"></i> Subtext</button>
-                    <button onclick="applyFormat('bulletList')" title="Bullet List"><i class="fas fa-list-ul"></i> Bullet List</button>
-                    <button onclick="applyFormat('maskedLink')" title="Masked Link"><i class="fas fa-link"></i> Masked Link</button>
-                    <button id="timestamp-btn" title="Timestamp" class="timestamp-btn"><i class="fas fa-clock"></i> Timestamp</button>
-                </div>
-            </div>
-            <button id="toggle-cheatsheet">Toggle Cheat Sheet</button>
-            <div id="cheatsheet" class="hidden">
-                <h2>Markdown Cheat Sheet</h2>
-                <ul>
-                    <li><strong>Bold:</strong> **text**</li>
-                    <li><em>Italic:</em> *text*</li>
-                    <li><u>Underline:</u> __text__</li>
-                    <li><s>Strikethrough:</s> ~~text~~</li>
-                    <li>Inline Code: `code`</li>
-                    <li>Code Block: ```code```</li>
-                    <li>Quote: > text</li>
-                    <li>Multi-line Quote: >>> text</li>
-                    <li>Spoiler: ||text||</li>
-                    <li>Header 1: # text</li>
-                    <li>Header 2: ## text</li>
-                    <li>Header 3: ### text</li>
-                    <li>Subtext: -# text</li>
-                    <li>Bullet List: * item</li>
-                    <li>Masked Link: [text](url)</li>
-                    <li>Timestamp: &lt;t:1234567890:t&gt; (t, T, d, D, f, F, R)</li>
-                </ul>
-            </div>
-        </main>
-        <footer>
-            <p>Made with ❤️ by <a href="https://officiallysp.net" target="_blank">OfficiallySp</a> · <a href="https://officiallysp.net">More projects</a> · <a href="https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline-" target="_blank">Discord Markdown</a></p>
-        </footer>
-    </div>
-    <div id="timestamp-modal" class="modal hidden">
-        <div class="modal-content">
-            <h2>Insert Timestamp</h2>
-            <div class="timestamp-sections">
-                <div class="preset-timestamps">
-                    <h3>Preset Timestamps</h3>
-                    <div class="timestamp-grid">
-                        <button data-format="t">Short Time</button>
-                        <button data-format="T">Long Time</button>
-                        <button data-format="d">Short Date</button>
-                        <button data-format="D">Long Date</button>
-                        <button data-format="f">Short Date/Time</button>
-                        <button data-format="F">Long Date/Time</button>
-                        <button data-format="R">Relative Time</button>
-                    </div>
-                </div>
-                <div class="custom-timestamp">
-                    <h3>Custom Timestamp</h3>
-                    <input type="datetime-local" id="custom-date-picker">
-                    <select id="custom-date-format">
-                        <option value="t">Short Time</option>
-                        <option value="T">Long Time</option>
-                        <option value="d">Short Date</option>
-                        <option value="D">Long Date</option>
-                        <option value="f">Short Date/Time</option>
-                        <option value="F">Long Date/Time</option>
-                        <option value="R">Relative Time</option>
-                    </select>
-                    <button id="insert-custom-timestamp">Insert Custom Date</button>
-                </div>
-            </div>
-            <button id="close-timestamp-modal" onclick="closeTimestampModal()">Close</button>
-        </div>
-    </div>
-    <script src="main.js"></script>
+    <p>Discord Markdown has been merged into <a href="https://discompress.officiallysp.net/">Discord Tools</a>. Redirecting...</p>
 </body>
 </html>
